@@ -2,20 +2,17 @@
 {
     public class DataStore
     {
-        public static List<Pet> Pets = new List<Pet>
+        public List<Pet> Pets = new List<Pet>
         {
-            new() { Id = 1, Name = "Ezreal", Birthdate = DateTime.Now },
-            new() { Id = 2, Name = "Seraphine", Birthdate = DateTime.Now },
+            new() { Id = 1, Name = "Ezreal", Birthdate = DateTime.Now, OwnerId = 1 },
+            new() { Id = 2, Name = "Seraphine", Birthdate = DateTime.Now , OwnerId = 2},
+            new() { Id = 3, Name = "Varus", Birthdate = DateTime.Now , OwnerId = 2},
         };
 
-        public static List<Owner> Owners = new List<Owner>
+        public List<Owner> Owners = new List<Owner>
         {
-            new Owner() { Id = 1, Name = "Jhon", Pets = [new() { Id = 1, Name = "Ezreal", Birthdate = DateTime.Now } ]},
-            new Owner() { Id = 2, Name = "Samuel", Pets =
-                [
-                    new() { Id = 1, Name = "Ezreal", Birthdate = DateTime.Now },
-                    new() { Id = 2, Name = "Seraphine", Birthdate = DateTime.Now }
-                ]},
+            new Owner() { Id = 1, Name = "Jhon" },
+            new Owner() { Id = 2, Name = "Samuel" }
         };
     }
 }

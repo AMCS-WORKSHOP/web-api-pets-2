@@ -3,22 +3,29 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Pets.Controllers
 {
+    // TODO: REFACTOR THIS CONTROLLER
     [ApiController]
     [Route("/api/pets")]
     public class PetsController : ControllerBase
     {
-        
+        private readonly DataStore _dataStore;
+
+        public PetsController(DataStore dataStore)
+        {
+            _dataStore = dataStore;
+        }
+
 
         [HttpGet]
         public ActionResult GetAllPets()
         {
-            return Ok(DataStore.Pets);
+            return Ok(_dataStore.Pets);
         }
 
         [HttpGet("{id}")]
         public ActionResult GetPet(int id)
         {
-            var pet = DataStore.Pets.SingleOrDefault(p => p.Id == id);
+            var pet = _dataStore.Pets.SingleOrDefault(p => p.Id == id);
 
             if (pet == null)
             {
@@ -32,7 +39,7 @@ namespace Pets.Controllers
         public ActionResult DeletePet(int id)
         {
             // find the pet first
-            var pet = DataStore.Pets.SingleOrDefault(pet => pet.Id == id);
+            var pet = _dataStore.Pets.SingleOrDefault(pet => pet.Id == id);
 
             if (pet == null)
             {
@@ -40,7 +47,7 @@ namespace Pets.Controllers
             }
 
             // delete the pet
-            DataStore.Pets.Remove(pet);
+            _dataStore.Pets.Remove(pet);
 
             return Ok();
         }
@@ -49,12 +56,12 @@ namespace Pets.Controllers
         public ActionResult UpdateOrCreatePet(Pet pet)
         {
             // find the pet first
-            var existingPet = DataStore.Pets.SingleOrDefault(p => p.Id == pet.Id);
+            var existingPet = _dataStore.Pets.SingleOrDefault(p => p.Id == pet.Id);
 
             // if pet doesn't exist, we need to create it.
             if (existingPet == null)
             {
-                DataStore.Pets.Add(pet);
+                _dataStore.Pets.Add(pet);
 
                 return Created();
             } 
